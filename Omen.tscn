@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Asetts/Omen.glb" type="PackedScene" id=1]
+
+[node name="Omen" instance=ExtResource( 1 )]
+transform = Transform( 50, 0, 0, 0, 50, 0, 0, 0, 50, 0, 0, 0 )
+
+[node name="hja" parent="." index="1"]
+collision_layer = 255
+collision_mask = 255
