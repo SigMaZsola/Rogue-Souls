@@ -28,6 +28,10 @@ enum {
 
 var state = IDLE
 
+func hurt():
+	$AudioStreamPlayer3D.play()
+	yield(get_tree().create_timer(0.81),"timeout")
+	$AudioStreamPlayer3D.stop()
 
 func _on_Area_body_entered(body):
 	if body.name == "Player":
@@ -134,6 +138,7 @@ func _on_Area2_body_entered(body):
 		can_attack = true
 		while(can_attack == true):
 			yield(get_tree().create_timer(1), "timeout")
+			$AudioStreamPlayer.play()
 			$AnimationTree.set("parameters/OneShot/active", true)
 			yield(get_tree().create_timer(0.5), "timeout")
 			if can_hurt == true:
@@ -142,7 +147,7 @@ func _on_Area2_body_entered(body):
 					body.h.value -= 40
 			$AnimationTree.set("parameters/aa/current", 0)
 			state = TURNING
-			
+			$AudioStreamPlayer.stop()
 	else:
 		can_attack = false
 

@@ -30,10 +30,13 @@ func _on_Area_body_entered(body):
 		target = body
 		
 
-func _process(delta):
-	
+func hurt():
+	$AudioStreamPlayer3D.play()
+	yield(get_tree().create_timer(0.81),"timeout")
+	$AudioStreamPlayer3D.stop()
 
-	
+func _process(delta):
+
 	$Viewport/ProgressBar.value = hp
 	if hp > 0:
 		active = true
@@ -83,10 +86,12 @@ func _on_Area2_body_entered(body):
 		can_move = false
 		can_attack = true
 		while(can_attack == true):
-			
+			$AudioStreamPlayer.play()
 			$AnimationTree.set("parameters/attack/current", 1)
 			$AnimationTree.set("parameters/OneShot/active", true)
-			yield(get_tree().create_timer(1), "timeout")
+			yield(get_tree().create_timer(0.8), "timeout")
+			$AudioStreamPlayer.stop()
+			yield(get_tree().create_timer(0.2), "timeout")
 			
 
 func _on_Area3_body_entered(body):

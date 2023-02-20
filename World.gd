@@ -18,6 +18,8 @@ var can_travel_back = false
 func _on_Area_body_entered(body):
 	if body.name == "Player":
 		body.h.value = 0
+		$AudioStreamPlayer.play()
+		
 
 
 func _physics_process(delta):
@@ -61,30 +63,40 @@ func color():
 		t_material.albedo_color = Globals.trouser_color
 
 func _ready():
+	$Player.h.value = 100
+	$Controls.visible = true
+	yield(get_tree().create_timer(5), "timeout")
+	$Controls.visible = false
 	if Globals.dungeoned == false:
 		$Player.global_transform.origin = $Campfire/Position3D.global_transform.origin
+		$River2/AudioStreamPlayer3D.play()
+		$AudioStreamPlayer.play()
+		$River2/AudioStreamPlayer3D2.play()
 		
+		$River2/AudioStreamPlayer3D3.play()
+		
+		$River2/AudioStreamPlayer3D4.play()
 
-	$Player.h.value = 100
-	
-		
 	#-----------------------------------------color------------------------------------------------------
-	#color()
-
-
+	color()
 	
 func _process(delta):
 	if Globals.dungeoned == true:
 		if can_travel_back == true:
 			if Input.is_action_just_pressed("interact"):
 				$Player.global_transform.origin = $bossroom/dungeon_area/CollisionShape.global_transform.origin
+				$HTerrain.visible = true
+				$AudioStreamPlayer.play()
 	if Input.is_action_just_pressed("interact"):
 		if can_travel == true:
 			$Player.global_transform.origin = $bossroom2/Position3D.global_transform.origin
+			$HTerrain.visible = false
+			$AudioStreamPlayer.stop()
 	$AnimationPlayer.play("fog")
 	if $Player.h.value == 0:
 		if Input.is_action_just_pressed("reload"):
 			get_tree().reload_current_scene()
+	
 
 
 
